@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	database "mislam-dev/dms-register-service/src/core/config"
 	"mislam-dev/dms-register-service/src/core/docs"
 	"os"
 
@@ -22,6 +23,7 @@ func main() {
 		})
 	})
 
+	// logging setup
 	file, _ := os.OpenFile("./logs/app.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	defer file.Close()
 
@@ -38,7 +40,15 @@ func main() {
 	if *debug {
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
+
+	// swaggger doc setup
 	docs.SetUp(app)
+
+	// database connection
+	database.ConnectDatabase()
+	defer database.CloseConnection()
+
+	// routes setup
 
 	if err := app.Listen(":3002"); err != nil {
 		log.Fatal().Err(err).Msg("failed to start server")

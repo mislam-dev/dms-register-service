@@ -1,0 +1,17 @@
+[build]
+  cmd     = "go build -o ./tmp/main ./src/main.go"
+  bin     = "./tmp/main"
+  delay   = 1000        # ms before rebuild on change
+  exclude_dir = ["tmp", "vendor", "testdata"]
+  include_ext = ["go"]
+  kill_delay  = "200ms"
+  send_interrupt = true   # graceful shutdown via SIGINT
+
+[log]
+  time = true
+
+[color]
+  build = "yellow"
+  runner = "green"
+  app   = "white"
+  watcher = "cyan"

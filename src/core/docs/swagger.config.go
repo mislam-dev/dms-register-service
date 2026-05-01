@@ -1,4 +1,4 @@
-package swagger
+package docs
 
 import (
 	"github.com/gofiber/fiber/v3"
@@ -39,8 +39,7 @@ func SetUp(app *fiber.App) {
 		return c.SendString(swaggerUIHTML)
 	})
 
-	// Serve the raw swagger.yaml spec file
 	app.Get("/docs/swagger.yaml", func(c fiber.Ctx) error {
-		return c.SendFile("./src/core/config/swagger/swagger.yaml")
+		return c.SendFile("./src/core/docs/swagger.yaml")
 	})
 }

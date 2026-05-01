@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"mislam-dev/dms-register-service/src/core/config/swagger"
 	"os"
 
 	"github.com/gofiber/fiber/v3"
@@ -37,7 +38,7 @@ func main() {
 	if *debug {
 		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
-	log.Info().Msg("Server starting on port 3002")
+	swagger.SetUp(app)
 
 	if err := app.Listen(":3002"); err != nil {
 		log.Fatal().Err(err).Msg("failed to start server")
